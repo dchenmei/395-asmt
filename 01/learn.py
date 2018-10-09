@@ -35,11 +35,11 @@ def extract(training_file):
     def same_letter(name):
         name = name.split(' ')
 
-        return name[0][0] == name[-1][0]
+        return name[0][0].lower() == name[0][-1].lower()
 
     def alpha_firstlast(name):
         name = name.split(' ')
-        return name[0] < name[-1]
+        return name[0].lower() < name[-1].lower()
 
     def second_letter(name):
         # TODO: what if their first name is one letter?
@@ -47,7 +47,7 @@ def extract(training_file):
         if len(name[0]) < 2:
             return False
         else:
-            return name[0][1] in { 'a', 'e', 'i', 'o', 'u'}
+            return name[0][1].lower() in { 'a', 'e', 'i', 'o', 'u'}
 
     def even_last(name):
         name = name.split(' ')
@@ -67,10 +67,16 @@ def extract(training_file):
         feature.append(second_letter(name))
         feature.append(even_last(name))
 
+        if (label == '+'):
+            label = True
+        else:
+            label = False
+
+        feature.append(label)
+
         features.append(feature)
 
-    for feature in features:
-        print(feature)
+    return features
 
 if __name__ == '__main__':
     matrix = extract("data/training.data")
