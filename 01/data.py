@@ -77,6 +77,3 @@ def extract(training_file):
         features.append(feature)
 
     return features
-
-if __name__ == '__main__':
-    matrix = extract("data/training.data")
